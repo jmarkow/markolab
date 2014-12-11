@@ -1,4 +1,4 @@
-function [FIGNUM,LABELS]=markolab_clust_cut(FEATURES,FEATURE_LABELS,CLUSTERFUN)
+function [FIGNUM,LABELS,SELECTION]=markolab_clust_cut(FEATURES,FEATURE_LABELS,CLUSTERFUN)
 % general purpose GUI for cluster cutting, pass in FEATURES, returns LABELS
 
 
@@ -9,6 +9,7 @@ end
 [nsamples,nfeatures]=size(FEATURES);
 
 LABELS=ones(nsamples,1);
+SELECTION=1;
 
 if nargin<2 | isempty(FEATURE_LABELS)
 	for i=1:nfeatures
@@ -54,7 +55,7 @@ pop_up_clusters_text= uicontrol('Style','text',...
 
 pop_up_choice= uicontrol('Style','popupmenu',...
 	'String',[1:20],...
-	'Position',[475,330,75,25],'value',1);
+	'Position',[475,330,75,25],'value',1,'call',@change_selection);
 pop_up_choice_text= uicontrol('Style','text',...
 	'String','Cluster selection',...
 	'Position',[500,370,100,45]);
@@ -103,6 +104,7 @@ set([main_window,plot_axis,pop_up_x,pop_up_x_text,pop_up_y,pop_up_y_text,pop_up_
 
 movegui(main_window,'center')
 set(main_window,'Visible','On')
+waitfor(main_window);
 
 %% Callbacks
 
@@ -219,6 +221,13 @@ end
 set(pop_up_choice,'string',[1:length(unique(LABELS))])
 L=legend(h,clusterid,'Location','NorthEastOutside');legend boxoff
 set(L,'FontSize',20,'FontName','Helvetica')
+
+end
+
+function change_selection(varargin)
+
+tmp=get(pop_up_choice,'string');
+SELECTION=str2num(tmp(get(pop_up_choice,'value')));
 
 end
 
