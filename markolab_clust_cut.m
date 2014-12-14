@@ -82,7 +82,6 @@ end
 
 
 % now align everything and send the main_window handle to the output
-% so we can use the gui with uiwait (requires the handle as a return value)
 
 align([pop_up_clusters,pop_up_clusters_text,...
 	pop_up_choice,pop_up_choice_text,push_draw_mode],'Center','None');
