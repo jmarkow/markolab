@@ -9,9 +9,7 @@ function DATA=markolab_smooth(DATA,ORDER)
 
 
 [nsamples,ntrials]=size(DATA);
-kernel=ones(1,ORDER)/ORDER
+kernel=ones(1,ORDER)/ORDER;
 
-for i=1:ntrials
-	DATA(:,i)=conv(DATA(:,i),kernel,'same');
-end
+DATA=filter(kernel,1,DATA);
 
