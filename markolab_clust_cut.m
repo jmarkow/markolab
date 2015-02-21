@@ -48,7 +48,7 @@ pop_up_z_text= uicontrol('Style','text',...
 	'Position',[600,130,50,45]);
 
 pop_up_clusters= uicontrol('Style','popupmenu',...
-	'String',[1:10],...
+	'String',[1:9],...
 	'Position',[475,210,75,25],'value',1,...
 	'call',@change_cluster);
 pop_up_clusters_text= uicontrol('Style','text',...
@@ -198,6 +198,11 @@ if isempty(dim)
 	end
 end
 
+cla;
+
+% plot in either 2 or 3 dims
+%
+
 if draw_mode
 
 	ndims=2;
@@ -242,6 +247,7 @@ else
 
 end
 
+set(pop_up_choice,'value',1);
 set(pop_up_choice,'string',[1:length(unique(LABELS))]);
 change_plot();
 

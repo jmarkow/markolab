@@ -8,6 +8,10 @@ function [EXTRACTION_PTS]=frontend_collate_idxs(DETECTION,PAD)
 if nargin<2, PAD=1; end
 if nargin<1, error('Need detection vector to continue.'); end
 
+if length(PAD)==1
+	PAD(2)=PAD(1);
+end
+
 % find the rising and falling edges
 
 idx=1:length(DETECTION)-1;
@@ -62,7 +66,7 @@ EXTRACTION_PTS=EXTRACTION_PTS(idx,:);
 % now account for the pads
 
 npairs=size(EXTRACTION_PTS,1);
-EXTRACTION_PTS=EXTRACTION_PTS+repmat([-PAD PAD],[npairs 1]);
+EXTRACTION_PTS=EXTRACTION_PTS+repmat([-PAD(1) PAD(2)],[npairs 1]);
 
 EXTRACTION_PTS(EXTRACTION_PTS<1)=1;
 EXTRACTION_PTS(EXTRACTION_PTS>length(DETECTION))=length(DETECTION);
