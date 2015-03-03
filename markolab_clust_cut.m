@@ -1,4 +1,4 @@
-function [FIGNUM,LABELS,SELECTION]=markolab_clust_cut(FEATURES,FEATURE_LABELS,CLUSTERFUN)
+function [FIGNUM,LABELS,SELECTION,DIMS]=markolab_clust_cut(FEATURES,FEATURE_LABELS,CLUSTERFUN)
 % general purpose GUI for cluster cutting, pass in FEATURES, returns LABELS
 
 
@@ -10,6 +10,7 @@ end
 
 LABELS=ones(nsamples,1);
 SELECTION=1;
+DIMS=[];
 
 if nargin<2 | isempty(FEATURE_LABELS)
 	for i=1:nfeatures
@@ -133,12 +134,15 @@ if isempty(dim)
 	end
 end
 
+DIMS=dim;
+
 choices=get(pop_up_clusters,'string');
 clusternum=str2num(choices(get(pop_up_clusters,'value')));
 
 % cluster, user-specified function is passed
 
 LABELS=CLUSTERFUN(FEATURES(:,dim),clusternum);
+
 
 % clear the plot axis
 
