@@ -41,7 +41,7 @@ switch lower(EDGE(1))
 end
 
 DATA=[front_pad;DATA;end_pad];
-kernel=ones(1,ORDER)/ORDER;
+kernel=ones(ORDER,1)/ORDER;
 DATA=filter(kernel,1,DATA);
 DATA=DATA(pad_size(1)+1:pad_size(1)+nsamples,:);
 
