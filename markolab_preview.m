@@ -7,7 +7,7 @@ function AX=markolab_preview(DATA,AUDIO,FS)
 AX=[];
 
 AX(1)=subplot(3,1,1:2);
-[s,f,t]=zftftb_pretty_sonogram(AUDIO,FS,'filtering',300);
+[s,f,t]=zftftb_pretty_sonogram(AUDIO,FS,'filtering',300,'norm_amp',1);
 imagesc(t,f/1e3,s);axis xy;
 
 
