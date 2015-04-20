@@ -1,4 +1,4 @@
-function DATA=markolab_smooth(DATA,ORDER,EDGE)
+function DATA=markolab_smooth(DATA,ORDER,EDGE,TYPE)
 %
 % OUTPUT=markolab_smooth(DATA,ORDER) 
 %
@@ -7,6 +7,7 @@ function DATA=markolab_smooth(DATA,ORDER,EDGE)
 % of samples in moving average)
 %
 
+if nargin<4, TYPE='b'; end
 if nargin<3, EDGE='r'; end
 
 [nsamples,ntrials]=size(DATA);
@@ -41,7 +42,17 @@ switch lower(EDGE(1))
 end
 
 DATA=[front_pad;DATA;end_pad];
-kernel=ones(ORDER,1)/ORDER;
-DATA=filter(kernel,1,DATA);
+
+switch lower(TYPE(1))
+	case 'b'
+		b=ones(ORDER,1)/ORDER;
+		a=1;
+	case 'e'
+		alpha=2/(1+ORDER);
+		b=alpha;
+		a=[1 alpha-1];
+end
+
+DATA=filter(b,a,DATA);
 DATA=DATA(pad_size(1)+1:pad_size(1)+nsamples,:);
 
