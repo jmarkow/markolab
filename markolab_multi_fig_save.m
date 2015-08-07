@@ -8,7 +8,7 @@ function multi_fig_save(fighandle,save_dir,filename,formats,varargin)
 %
 %
 
-renderer='painters';
+renderer='';
 res=300;
 
 nparams=length(varargin);
@@ -24,6 +24,14 @@ for i=1:2:nparams
 		case 'res'
 			res=varargin{i+1};
 	end
+end
+
+if isempty(renderer)
+    renderer=get(fighandle,'renderer');
+end
+
+if ~usejava('desktop')
+    renderer='Painters'; % switch to painters if not in desktop mode
 end
 
 renderer=[ '-' renderer];
