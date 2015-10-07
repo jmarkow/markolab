@@ -1,4 +1,4 @@
-function sfield_stairplot(N,BINS,varargin)
+function AX=sfield_stairplot(N,BINS,varargin)
 %%%% generates a stair plot given histogram data
 %
 %
@@ -8,6 +8,9 @@ function sfield_stairplot(N,BINS,varargin)
 
 color='r';
 linewidth=1;
+method='l';
+facecolor='r';
+edgecolor='k';
 
 nparams=length(varargin);
 
@@ -21,6 +24,12 @@ for i=1:2:nparams
 			color=varargin{i+1};
 		case 'linewidth'
 			linewidth=varargin{i+1};
+		case 'method'
+			method=varargin{i+1};
+		case 'edgecolor'
+			edgecolor=varargin{i+1};
+		case 'facecolor'
+			facecolor=varargin{i+1};
 	end
 end
 
@@ -34,4 +43,15 @@ for i=1:length(BINS)-1
 	yvec=[yvec repmat(N(i),[1 2])];
 end
 
-plot(xvec,yvec,'k-','color',color,'linewidth',linewidth);
+switch lower(method(1))
+	case 'l'
+		AX=plot(xvec,yvec,'k-','color',color,'linewidth',linewidth);
+	case 'a'
+		AX=area(xvec,yvec,'edgecolor',edgecolor,'facecolor',facecolor);
+    case 'p'
+        xvec=[-eps xvec xvec(end)+eps];
+        yvec=[0 yvec 0];
+        AX=patch(xvec,yvec,ones(size(xvec)),'edgecolor',edgecolor,'facecolor',facecolor);
+	otherwise
+		error('Did not understand plotting method');
+end
