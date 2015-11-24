@@ -48,6 +48,10 @@ for i=1:2:nparams
 			bunching_offset=varargin{i+1};
 		case 'box_width'
 			box_width=varargin{i+1};
+        case 'box_color'
+            box_color=varargin{i+1};
+        case 'med_color'
+            med_color=varargin{i+1};
 	end
 end
 
@@ -73,13 +77,12 @@ elseif isempty(GRPS)
 	GRPS=ones(size(DATA,2));
 end
 
-
-
 uniq_grps=unique(GRPS);
 ngrps=length(uniq_grps);
 if isempty(feature_idx)
 	feature_idx=ones(1,ngrps);
 end
+
 
 uniq_features=unique(feature_idx);
 nfeatures=length(uniq_features);
@@ -99,7 +102,7 @@ if ~isempty(bunching)
 	pos_idx(1:bunching:length(pos_idx))=bunching_offset;
 end
 pos_idx=cumsum([pos_idx]);
-boxplot(DATA,GRPS,'positions',pos_idx,'width',box_width)
+boxplot(DATA,GRPS,'positions',pos_idx,'width',box_width,'boxstyle','outline')
 hold on;
 
 WHISK_HANDLE=findobj(gcf,'-regexp','Tag','\w*Whisker');
@@ -112,7 +115,11 @@ if fill_box
 	for i=1:nfeatures
 		idx=find(feature_idx==uniq_features(i));
 		for j=1:length(idx)	
-			patch(get(BOX_HANDLE(idx(j)),'XData'),get(BOX_HANDLE(idx(j)),'YData'),box_color(i,:),'edgecolor','k','linewidth',linewidth);
+            if ischar(box_color)
+                patch(get(BOX_HANDLE(idx(j)),'XData'),get(BOX_HANDLE(idx(j)),'YData'),ones(1,3),'edgecolor','k','linewidth',linewidth,'facecolor',box_color);
+            else
+                patch(get(BOX_HANDLE(idx(j)),'XData'),get(BOX_HANDLE(idx(j)),'YData'),box_color(i,:),'edgecolor','k','linewidth',linewidth);
+            end
 			plot(get(MED_HANDLE(idx(j)),'XData'),get(MED_HANDLE(idx(j)),'YData'),'k-','color',med_color(i,:),'linewidth',med_width);
 			%set(WHISK_HANDLE([idx(j) idx(j)+ngrps]),'color',box_color(i,:));
 		end
