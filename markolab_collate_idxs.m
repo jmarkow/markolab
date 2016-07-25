@@ -1,4 +1,4 @@
-function [EXTRACTION_PTS]=frontend_collate_idxs(DETECTION,PAD)
+function [EXTRACTION_PTS]=markolab_collate_idxs(DETECTION,PAD)
 % takes a vector where 1 indicates a hit and 0 nohit, and organizes
 % into a series of extraction points suitable for extracting data
 %
