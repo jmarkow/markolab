@@ -1,5 +1,5 @@
-function AX=sfield_stairplot(N,BINS,varargin)
-%%%% generates a stair plot given histogram data
+function AX=markolab_stairplot(N,BINS,varargin)
+% generates a stair plot given histogram data
 %
 %
 %
@@ -15,7 +15,7 @@ edgecolor='k';
 nparams=length(varargin);
 
 if mod(nparams,2)>0
-	error('ephysPipeline:argChk','Parameters must be specified as parameter/value pairs!');
+	error('argChk','Parameters must be specified as parameter/value pairs!');
 end
 
 for i=1:2:nparams
