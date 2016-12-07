@@ -19,6 +19,10 @@ if nargin<3 | isempty(PAD), PAD=1; end
 if nargin<2 | isempty(WIN), WIN=2; end
 if nargin<1, error('Need CC matrix to continue'); end
 
+if isvector(CC)
+    CC=CC(:)';
+end
+
 if PAD==1
 	CC=[zeros(size(CC,1),WIN) CC  zeros(size(CC,1),WIN)];
 elseif PAD==2

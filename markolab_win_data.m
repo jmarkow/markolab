@@ -1,4 +1,4 @@
-function [WINS WINS_T]=markolab_win_data(LOCS,WIN_SIZE,DATA)
+function [WINS WIN_T IDX]=markolab_win_data(LOCS,WIN_SIZE,DATA)
 %
 %
 %
@@ -27,4 +27,6 @@ for i=1:length(LOCS)
   end
 end
 
+IDX=1:length(LOCS);
+IDX(to_del)=[];
 WINS(:,to_del)=[];
