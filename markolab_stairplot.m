@@ -11,6 +11,7 @@ linewidth=1;
 method='l';
 facecolor='r';
 edgecolor='k';
+linestyle='--';
 
 nparams=length(varargin);
 
@@ -30,6 +31,8 @@ for i=1:2:nparams
 			edgecolor=varargin{i+1};
 		case 'facecolor'
 			facecolor=varargin{i+1};
+        case 'linestyle'
+            linestyle=varargin{i+1};
 	end
 end
 
@@ -42,6 +45,7 @@ for i=1:length(BINS)-1
 	xvec=[xvec BINS(i:i+1)];
 	yvec=[yvec repmat(N(i),[1 2])];
 end
+
 
 switch lower(method(1))
 	case 'l'
